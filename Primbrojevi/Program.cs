@@ -29,7 +29,6 @@ namespace Vsite.Pood
             }
         }
 
-        static int s;
         static bool[] jeliEliminiran;
         static int[] primovi;
 
@@ -50,7 +49,7 @@ namespace Vsite.Pood
         private static int[] PokupiPrimove()
         {
             int broj = 0;
-            for (int i = 2; i < s; ++i)
+            for (int i = 2; i < jeliEliminiran.Length; ++i)
             {
                 if (nijeEliminiran(i))
                     ++broj;
@@ -58,7 +57,7 @@ namespace Vsite.Pood
 
             primovi = new int[broj];
 
-            for (int i = 2, j = 0; i < s; ++i)
+            for (int i = 2, j = 0; i < jeliEliminiran.Length; ++i)
             {
                 if (nijeEliminiran(i))
                     primovi[j++] = i;
@@ -68,7 +67,7 @@ namespace Vsite.Pood
 
         private static void EliminirajVisekratnike()
         {
-            for (int i = 2; i < Math.Sqrt(s) + 1; ++i)
+            for (int i = 2; i < Math.Sqrt(jeliEliminiran.Length) + 1; ++i)
             {
                 if (nijeEliminiran(i))
                 {
@@ -84,14 +83,13 @@ namespace Vsite.Pood
 
         private static void EleminirajVesekratnikeOdBrojaN(int n)
         {
-            for (int j = 2 * n; j < s; j += n)
+            for (int j = 2 * n; j < jeliEliminiran.Length; j += n)
                 jeliEliminiran[j] = true;
         }
 
         private static void NapraviNizCijelihBrojeva(int max)
         {
-            s = max + 1; 
-            jeliEliminiran = new bool[s]; 
+            jeliEliminiran = new bool[max + 1]; 
         }
     }
 }
