@@ -49,7 +49,7 @@ namespace Vsite.Pood
         {
             // koliko je primbrojeva?
             int broj = 0;
-            for (int i = 0; i < s; ++i)
+            for (int i = 2; i < s; ++i)
             {
                 if (!jeliEliminiran[i])
                     ++broj;
@@ -58,7 +58,7 @@ namespace Vsite.Pood
             primovi = new int[broj];
 
             // prebaci primbrojeve u rezultat
-            for (int i = 0, j = 0; i < s; ++i)
+            for (int i = 2, j = 0; i < s; ++i)
             {
                 if (!jeliEliminiran[i])
                     primovi[j++] = i;
@@ -88,15 +88,6 @@ namespace Vsite.Pood
             // deklaracije
             s = max + 1; // duljina niza
             jeliEliminiran = new bool[s]; // niz s primbrojevima
-
-            // inicijaliziramo sve na true
-            for (int i = 0; i < s; ++i)
-                jeliEliminiran[i] = false;
-
-            // ukloni 0 i 1 koji su primbrojevi po definiciji
-            jeliEliminiran[0] = jeliEliminiran[1] = true;
-
-            // sito (ide do kvadratnog korijena maksimalnog broja)
         }
     }
 }
