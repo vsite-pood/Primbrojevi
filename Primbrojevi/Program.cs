@@ -50,7 +50,7 @@ namespace Vsite.Pood
         private static int[] PokupiPrimove()
         {
             int broj = 0;
-            for (int i = 0; i < s; ++i)
+            for (int i = 2; i < s; ++i)
             {
                 if (!jeLiElImInirAn[i])
                     ++broj;
@@ -58,7 +58,7 @@ namespace Vsite.Pood
 
             primovi = new int[broj];
 
-            for (int i = 0, j = 0; i < s; ++i)
+            for (int i = 2, j = 0; i < s; ++i)
             {
                 if (!jeLiElImInirAn[i])
                     primovi[j++] = i;
@@ -87,11 +87,6 @@ namespace Vsite.Pood
         {
             s = max + 1; 
             jeLiElImInirAn = new bool[s]; 
-
-            for (int i = 0; i < s; ++i)
-                jeLiElImInirAn[i] = false;
-
-            jeLiElImInirAn[0] = jeLiElImInirAn[1] = true;
         }
     }
 }
