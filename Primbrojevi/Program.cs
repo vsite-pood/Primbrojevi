@@ -51,8 +51,8 @@ namespace Vsite.Pood
             int broj = 0;
             for (int i = 2; i < s; ++i)
             {
-                if (!jeLiEliminiran[i])
-                    ++broj;
+                if (NijeEliminiran(i))
+                    broj++;
             }
 
             primovi = new int[broj];
@@ -60,10 +60,14 @@ namespace Vsite.Pood
             // prebaci primbrojeve u rezultat
             for (int i = 2, j = 0; i < s; ++i)
             {
-                if (!jeLiEliminiran[i])
+                if (NijeEliminiran(i))
                     primovi[j++] = i;
             }
             return primovi; // vrati niz brojeva
+        }
+
+        private static bool NijeEliminiran(int i) {
+            return jeLiEliminiran[i] == false;
         }
 
         private static void EliminirajVišekratnike()
