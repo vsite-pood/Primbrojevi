@@ -29,7 +29,7 @@ namespace Vsite.Pood
             }
         }
         static int s;
-        static bool[] f;
+        static bool[] jeliEliminiran;
         static int[] primovi;
 
         // Primjer iz knjige  Robert C. Martin: "Agile Software Development"!!!
@@ -51,7 +51,7 @@ namespace Vsite.Pood
             int broj = 0;
             for (int i = 0; i < s; ++i)
             {
-                if (f[i])
+                if (!jeliEliminiran[i])
                     ++broj;
             }
 
@@ -60,7 +60,7 @@ namespace Vsite.Pood
             // prebaci primbrojeve u rezultat
             for (int i = 0, j = 0; i < s; ++i)
             {
-                if (f[i])
+                if (!jeliEliminiran[i])
                     primovi[j++] = i;
             }
             return primovi;
@@ -70,7 +70,7 @@ namespace Vsite.Pood
         {
             for (int i = 2; i < Math.Sqrt(s) + 1; ++i)
             {
-                if (f[i]) // ako je i prekrižen, prekriži i višekratnike
+                if (!jeliEliminiran[i]) // ako je i prekrižen, prekriži i višekratnike
                 {
                     EliminirajVišekratnike(i);
                 }
@@ -80,21 +80,21 @@ namespace Vsite.Pood
         private static void EliminirajVišekratnike(int i)
         {
             for (int j = 2 * i; j < s; j += i)
-                f[j] = false; // višekratnik nije primbroj
+                jeliEliminiran[j] = true; // višekratnik nije primbroj
         }
 
         private static void NapraviNizCijelihBrojeva(int max)
         {
             // deklaracije
             s = max + 1; // duljina niza
-            f = new bool[s]; // niz s primbrojevima
+            jeliEliminiran = new bool[s]; // niz s primbrojevima
 
             // inicijaliziramo sve na true
             for (int i = 0; i < s; ++i)
-                f[i] = true;
+                jeliEliminiran[i] = false;
 
             // ukloni 0 i 1 koji su primbrojevi po definiciji
-            f[0] = f[1] = false;
+            jeliEliminiran[0] = jeliEliminiran[1] = true;
 
             // sito (ide do kvadratnog korijena maksimalnog broja)
         }
