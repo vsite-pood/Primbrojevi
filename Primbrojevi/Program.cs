@@ -29,7 +29,7 @@ namespace Vsite.Pood
             }
         }
 
-        static int s;
+        
         static bool[] jeliEliminiran;
         static int[] primovi;
 
@@ -54,7 +54,7 @@ namespace Vsite.Pood
         private static int[] PokupiPrimove()
         {
             int broj = 0;
-            for (int i = 2; i < s; ++i)
+            for (int i = 2; i < jeliEliminiran.Length; ++i)
             {
                 if (!jeliEliminiran[i])
                     ++broj;
@@ -63,7 +63,7 @@ namespace Vsite.Pood
             primovi = new int[broj];
 
             // prebaci primbrojeve u rezultat
-            for (int i = 2, j = 0; i < s; ++i)
+            for (int i = 2, j = 0; i < jeliEliminiran.Length; ++i)
             {
                 if (!jeliEliminiran[i])
                     primovi[j++] = i;
@@ -73,11 +73,11 @@ namespace Vsite.Pood
 
         private static void Prosijaj()
         {
-            for (int i = 2; i < Math.Sqrt(s) + 1; ++i)
+            for (int i = 2; i < Math.Sqrt(jeliEliminiran.Length) + 1; ++i)
             {
                 if (!jeliEliminiran[i]) // ako je i prekrižen, prekriži i višekratnike
                 {
-                    for (int j = 2 * i; j < s; j += i)
+                    for (int j = 2 * i; j < jeliEliminiran.Length; j += i)
                         jeliEliminiran[j] = true; // višekratnik nije primbroj
                 }
             }
@@ -85,8 +85,7 @@ namespace Vsite.Pood
 
         private static void KreirajSito(int max)
         {
-            s = max + 1; // duljina niza
-            jeliEliminiran = new bool[s]; // niz s primbrojevima
+            jeliEliminiran = new bool[max+1]; // niz s primbrojevima
         }
     }
 }
