@@ -75,7 +75,7 @@ namespace Vsite.Pood
             // sito (ide do kvadratnog korijena maksimalnog broja)
             for (int i = 2; i < Math.Sqrt(s) + 1; ++i)
             {
-                if (!jeLiEliminiran[i]) // ako je i prekrižen, prekriži i višekratnike
+                if (NijeEliminiran(i)) // ako je i prekrižen, prekriži i višekratnike
                 {
                     EliminirajVišekratnike(i);
                 }
