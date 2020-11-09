@@ -49,7 +49,7 @@ namespace Vsite.Pood
         {
             // koliko je primbrojeva?
             int broj = 0;
-            for (int i = 0; i < s; ++i)
+            for (int i = 2; i < s; ++i)
             {
                 if (!jeLiEliminiran[i])
                     ++broj;
@@ -58,7 +58,7 @@ namespace Vsite.Pood
             primovi = new int[broj];
 
             // prebaci primbrojeve u rezultat
-            for (int i = 0, j = 0; i < s; ++i)
+            for (int i = 2, j = 0; i < s; ++i)
             {
                 if (!jeLiEliminiran[i])
                     primovi[j++] = i;
@@ -87,14 +87,7 @@ namespace Vsite.Pood
         private static void NapraviNizCijelihBrojeva(int max)
         {
             s = max + 1; // duljina niza
-            jeLiEliminiran = new bool[s]; // niz s primbrojevima
-
-            // inicijaliziramo sve na false 
-            for (int i = 0; i < s; ++i)
-                jeLiEliminiran[i] = false;
-
-            // ukloni 0 i 1 koji su primbrojevi po definiciji
-            jeLiEliminiran[0] = jeLiEliminiran[1] = true;
+            jeLiEliminiran = new bool[s]; // niz s primbrojevima         
         }
     }
 }
