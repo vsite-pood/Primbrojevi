@@ -30,8 +30,9 @@ namespace Vsite.Pood
         }
 
         static int s;
-        static bool[] f;
+        static bool[] jeLiElImInirAn;
         static int[] primovi;
+
 
         public static int[] GenerirajPrimBrojeve(int max)
         {
@@ -51,7 +52,7 @@ namespace Vsite.Pood
             int broj = 0;
             for (int i = 0; i < s; ++i)
             {
-                if (f[i])
+                if (!jeLiElImInirAn[i])
                     ++broj;
             }
 
@@ -59,7 +60,7 @@ namespace Vsite.Pood
 
             for (int i = 0, j = 0; i < s; ++i)
             {
-                if (f[i])
+                if (!jeLiElImInirAn[i])
                     primovi[j++] = i;
             }
             return primovi;
@@ -69,7 +70,7 @@ namespace Vsite.Pood
         {
             for (int i = 2; i < Math.Sqrt(s) + 1; ++i)
             {
-                if (f[i])
+                if (!jeLiElImInirAn[i])
                 {
                     EleminirajVesekratnikeOdBrojaN(i);
                 }
@@ -79,19 +80,18 @@ namespace Vsite.Pood
         private static void EleminirajVesekratnikeOdBrojaN(int n)
         {
             for (int j = 2 * n; j < s; j += n)
-                f[j] = false;
+                jeLiElImInirAn[j] = true;
         }
 
         private static void NapraviNizCijelihBrojeva(int max)
         {
             s = max + 1; 
-            f = new bool[s]; 
-            int i;
+            jeLiElImInirAn = new bool[s]; 
 
-            for (i = 0; i < s; ++i)
-                f[i] = true;
+            for (int i = 0; i < s; ++i)
+                jeLiElImInirAn[i] = false;
 
-            f[0] = f[1] = false;
+            jeLiElImInirAn[0] = jeLiElImInirAn[1] = true;
         }
     }
 }
