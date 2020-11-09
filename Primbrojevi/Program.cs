@@ -40,11 +40,11 @@ namespace Vsite.Pood
                 return new int[0]; // vrati prazan niz
 
             // deklaracije
-            KreirajSito(max);
+            NapraviNizCjelihBrojeva(max);
 
             // sito (ide do kvadratnog korijena maksimalnog broja)
 
-            Prosijaj();
+            EliminirajVisekratnike();
 
             // koliko je primbrojeva?
             return PokupiPrimove();
@@ -71,19 +71,24 @@ namespace Vsite.Pood
             return primovi; // vrati niz brojeva
         }
 
-        private static void Prosijaj()
+        private static void EliminirajVisekratnike()
         {
             for (int i = 2; i < Math.Sqrt(jeliEliminiran.Length) + 1; ++i)
             {
                 if (!jeliEliminiran[i]) // ako je i prekrižen, prekriži i višekratnike
                 {
-                    for (int j = 2 * i; j < jeliEliminiran.Length; j += i)
-                        jeliEliminiran[j] = true; // višekratnik nije primbroj
+                    EliminirajVisekratnike(i); // višekratnik nije primbroj
                 }
+            }
+
+            void EliminirajVisekratnike(int i)
+            {
+                for (int j = 2 * i; j < jeliEliminiran.Length; j += i)
+                    jeliEliminiran[j] = true;
             }
         }
 
-        private static void KreirajSito(int max)
+        private static void NapraviNizCjelihBrojeva(int max)
         {
             jeliEliminiran = new bool[max+1]; // niz s primbrojevima
         }
