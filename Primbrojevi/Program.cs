@@ -51,7 +51,7 @@ namespace Vsite.Pood
             int broj = 0;
             for (int i = 2; i < s; ++i)
             {
-                if (!jeliEliminiran[i])
+                if (NijeEliminiran(i))
                     ++broj;
             }
 
@@ -60,7 +60,7 @@ namespace Vsite.Pood
             // prebaci primbrojeve u rezultat
             for (int i = 2, j = 0; i < s; ++i)
             {
-                if (!jeliEliminiran[i])
+                if (NijeEliminiran(i))
                     primovi[j++] = i;
             }
             return primovi;
@@ -70,11 +70,16 @@ namespace Vsite.Pood
         {
             for (int i = 2; i < Math.Sqrt(s) + 1; ++i)
             {
-                if (!jeliEliminiran[i]) // ako je i prekrižen, prekriži i višekratnike
+                if (NijeEliminiran(i)) // ako je i prekrižen, prekriži i višekratnike
                 {
                     EliminirajVišekratnike(i);
                 }
             }
+        }
+
+        private static bool NijeEliminiran(int i)
+        {
+            return jeliEliminiran[i] == false;
         }
 
         private static void EliminirajVišekratnike(int i)
