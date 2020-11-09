@@ -39,8 +39,8 @@ namespace Vsite.Pood
             if (max < 2)
                 return new int[0]; // vrati prazan niz
 
-            NapraviSito(max);
-            Prosijaj();
+            NapraviNizCijelihBrojeva(max);
+            EliminirajVišekratnike();
             return PokupiPrimove();
 
         }
@@ -66,20 +66,25 @@ namespace Vsite.Pood
             return primovi; // vrati niz brojeva
         }
 
-        private static void Prosijaj()
+        private static void EliminirajVišekratnike()
         {
             // sito (ide do kvadratnog korijena maksimalnog broja)
             for (int i = 2; i < Math.Sqrt(s) + 1; ++i)
             {
                 if (f[i]) // ako je i prekrižen, prekriži i višekratnike
                 {
-                    for (int j = 2 * i; j < s; j += i)
-                        f[j] = false; // višekratnik nije primbroj
+                    EliminirajVišekratnike(i);
                 }
             }
         }
 
-        private static void NapraviSito(int max)
+        private static void EliminirajVišekratnike(int i)
+        {
+            for (int j = 2 * i; j < s; j += i)
+                f[j] = false; // višekratnik nije primbroj
+        }
+
+        private static void NapraviNizCijelihBrojeva(int max)
         {
             s = max + 1; // duljina niza
             f = new bool[s]; // niz s primbrojevima
