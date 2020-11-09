@@ -29,54 +29,64 @@ namespace Vsite.Pood
             }
         }
 
-        // Primjer iz knjige  Robert C. Martin: "Agile Software Development"!!!
+        static int s;
+        static bool[] f;
+        static int[] primovi;
+
         public static int[] GenerirajPrimBrojeve(int max)
         {
             if (max < 2)
-                return new int[0]; // vrati prazan niz
+                return new int[0]; 
 
+            NapraviSitho(max);
 
-            // deklaracije
-            int s = max + 1; // duljina niza
-            bool[] f = new bool[s]; // niz s primbrojevima
-            int i;
+            Prosijaj();
 
-            // inicijaliziramo sve na true
-            for (i = 0; i < s; ++i)
-                f[i] = true;
+            return PokupiPrimove();
 
-            // ukloni 0 i 1 koji su primbrojevi po definiciji
-            f[0] = f[1] = false;
+        }
 
-            // sito (ide do kvadratnog korijena maksimalnog broja)
-            int j;
-            for (i = 2; i < Math.Sqrt(s) + 1; ++i)
-            {
-                if (f[i]) // ako je i prekrižen, prekriži i višekratnike
-                {
-                    for (j = 2 * i; j < s; j += i)
-                        f[j] = false; // višekratnik nije primbroj
-                }
-            }
-
-            // koliko je primbrojeva?
+        private static int[] PokupiPrimove()
+        {
             int broj = 0;
-            for (i = 0; i < s; ++i)
+            for (int i = 0; i < s; ++i)
             {
                 if (f[i])
                     ++broj;
             }
 
-            int[] primovi = new int[broj];
+            primovi = new int[broj];
 
-            // prebaci primbrojeve u rezultat
-            for (i = 0, j = 0; i < s; ++i)
+            for (int i = 0, j = 0; i < s; ++i)
             {
                 if (f[i])
                     primovi[j++] = i;
             }
-            return primovi; // vrati niz brojeva
-            
+            return primovi;
+        }
+
+        private static void Prosijaj()
+        {
+            for (int i = 2; i < Math.Sqrt(s) + 1; ++i)
+            {
+                if (f[i]) 
+                {
+                    for (int j = 2 * i; j < s; j += i)
+                        f[j] = false; 
+                }
+            }
+        }
+
+        private static void NapraviSitho(int max)
+        {
+            s = max + 1; 
+            f = new bool[s]; 
+            int i;
+
+            for (i = 0; i < s; ++i)
+                f[i] = true;
+
+            f[0] = f[1] = false;
         }
     }
 }
