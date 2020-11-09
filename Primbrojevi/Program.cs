@@ -2,32 +2,32 @@
 
 namespace Vsite.Pood
 {
-    public class Program
-    {
-        static void Main(string[] args)
-        {
-            IspišiPrimbrojeve(0);
-            Console.ReadKey();
-            IspišiPrimbrojeve(1);
-            Console.ReadKey();
-            IspišiPrimbrojeve(2);
-            Console.ReadKey();
-            IspišiPrimbrojeve(100);
-            Console.ReadKey();
-        }
+	public class Program
+	{
+		static void Main(string[] args)
+		{
+			IspišiPrimbrojeve( 0 );
+			Console.ReadKey();
+			IspišiPrimbrojeve( 1 );
+			Console.ReadKey();
+			IspišiPrimbrojeve( 2 );
+			Console.ReadKey();
+			IspišiPrimbrojeve( 100 );
+			Console.ReadKey();
+		}
 
-        static void IspišiPrimbrojeve(int max)
-        {
-            Console.WriteLine("Primbrojevi do {0}:", max);
-            var brojevi = GenerirajPrimBrojeve(max);
-            if (brojevi.Length == 0)
-                Console.WriteLine("Nema");
-            else
-            {
-                foreach (var broj in brojevi)
-                    Console.WriteLine(broj);
-            }
-        }
+		static void IspišiPrimbrojeve(int max)
+		{
+			Console.WriteLine( "Primbrojevi do {0}:", max );
+			var brojevi = GenerirajPrimBrojeve( max );
+			if ( brojevi.Length == 0 )
+				Console.WriteLine( "Nema" );
+			else
+			{
+				foreach ( var broj in brojevi )
+					Console.WriteLine( broj );
+			}
+		}
 		static int s;
 		static bool[] jeLiEliminiran;
 		static int[] primovi;
@@ -49,7 +49,7 @@ namespace Vsite.Pood
 		{
 			// koliko je primbrojeva?
 			int broj = 0;
-			for ( int i = 0; i < s; ++i )
+			for ( int i = 2; i < s; ++i )
 			{
 				if ( !jeLiEliminiran[i] )
 					++broj;
@@ -58,7 +58,7 @@ namespace Vsite.Pood
 			primovi = new int[broj];
 
 			// prebaci primbrojeve u rezultat
-			for ( int i = 0, j = 0; i < s; ++i )
+			for ( int i = 2, j = 0; i < s; ++i )
 			{
 				if ( !jeLiEliminiran[i] )
 					primovi[j++] = i;
@@ -91,12 +91,6 @@ namespace Vsite.Pood
 			s = max + 1; // duljina niza
 			jeLiEliminiran = new bool[s]; // niz s primbrojevima
 
-			// inicijaliziramo sve na false
-			for (int i = 0; i < s; ++i )
-				jeLiEliminiran[i] = false;
-
-			// ukloni 0 i 1 koji su primbrojevi po definiciji
-			jeLiEliminiran[0] = jeLiEliminiran[1] = true;
 		}
 	}
 }
