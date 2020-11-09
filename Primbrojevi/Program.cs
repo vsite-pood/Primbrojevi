@@ -38,9 +38,9 @@ namespace Vsite.Pood
             if (max < 2)
                 return new int[0]; 
 
-            NapraviSitho(max);
+            NapraviNizCijelihBrojeva(max);
 
-            Prosijaj();
+            EliminirajVisekratnike();
 
             return PokupiPrimove();
 
@@ -65,19 +65,24 @@ namespace Vsite.Pood
             return primovi;
         }
 
-        private static void Prosijaj()
+        private static void EliminirajVisekratnike()
         {
             for (int i = 2; i < Math.Sqrt(s) + 1; ++i)
             {
-                if (f[i]) 
+                if (f[i])
                 {
-                    for (int j = 2 * i; j < s; j += i)
-                        f[j] = false; 
+                    EleminirajVesekratnikeOdBrojaN(i);
                 }
             }
         }
 
-        private static void NapraviSitho(int max)
+        private static void EleminirajVesekratnikeOdBrojaN(int n)
+        {
+            for (int j = 2 * n; j < s; j += n)
+                f[j] = false;
+        }
+
+        private static void NapraviNizCijelihBrojeva(int max)
         {
             s = max + 1; 
             f = new bool[s]; 
