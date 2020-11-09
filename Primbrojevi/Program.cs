@@ -30,7 +30,7 @@ namespace Vsite.Pood
         }
 
         static int s;
-        static bool[] jeLiElImInirAn;
+        static bool[] jeliEliminiran;
         static int[] primovi;
 
 
@@ -52,7 +52,7 @@ namespace Vsite.Pood
             int broj = 0;
             for (int i = 2; i < s; ++i)
             {
-                if (!jeLiElImInirAn[i])
+                if (nijeEliminiran(i))
                     ++broj;
             }
 
@@ -60,7 +60,7 @@ namespace Vsite.Pood
 
             for (int i = 2, j = 0; i < s; ++i)
             {
-                if (!jeLiElImInirAn[i])
+                if (nijeEliminiran(i))
                     primovi[j++] = i;
             }
             return primovi;
@@ -70,23 +70,28 @@ namespace Vsite.Pood
         {
             for (int i = 2; i < Math.Sqrt(s) + 1; ++i)
             {
-                if (!jeLiElImInirAn[i])
+                if (nijeEliminiran(i))
                 {
                     EleminirajVesekratnikeOdBrojaN(i);
                 }
             }
         }
 
+        private static bool nijeEliminiran(int i)
+        {
+            return jeliEliminiran[i] == false;
+        }
+
         private static void EleminirajVesekratnikeOdBrojaN(int n)
         {
             for (int j = 2 * n; j < s; j += n)
-                jeLiElImInirAn[j] = true;
+                jeliEliminiran[j] = true;
         }
 
         private static void NapraviNizCijelihBrojeva(int max)
         {
             s = max + 1; 
-            jeLiElImInirAn = new bool[s]; 
+            jeliEliminiran = new bool[s]; 
         }
     }
 }
