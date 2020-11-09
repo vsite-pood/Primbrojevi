@@ -28,7 +28,7 @@ namespace Vsite.Pood
 					Console.WriteLine( broj );
 			}
 		}
-		static int s;
+		//static int s;
 		static bool[] jeLiEliminiran;
 		static int[] primovi;
 
@@ -49,7 +49,7 @@ namespace Vsite.Pood
 		{
 			// koliko je primbrojeva?
 			int broj = 0;
-			for ( int i = 2; i < s; ++i )
+			for ( int i = 2; i < jeLiEliminiran.Length; ++i )
 			{
 				if ( NijeEliminiran( i ) )
 					++broj;
@@ -58,7 +58,7 @@ namespace Vsite.Pood
 			primovi = new int[broj];
 
 			// prebaci primbrojeve u rezultat
-			for ( int i = 2, j = 0; i < s; ++i )
+			for ( int i = 2, j = 0; i < jeLiEliminiran.Length; ++i )
 			{
 				if ( NijeEliminiran( i ) )
 					primovi[j++] = i;
@@ -70,9 +70,9 @@ namespace Vsite.Pood
 		{
 			// sito (ide do kvadratnog korijena maksimalnog broja)
 
-			for ( int i = 2; i < Math.Sqrt( s ) + 1; ++i )
+			for ( int i = 2; i < Math.Sqrt( jeLiEliminiran.Length ) + 1; ++i )
 			{
-				if ( NijeEliminiran(i) ) // ako je i prekrižen, prekriži i višekratnike
+				if ( NijeEliminiran( i ) ) // ako je i prekrižen, prekriži i višekratnike
 				{
 					EliminirajVišekratnike( i );
 				}
@@ -86,16 +86,13 @@ namespace Vsite.Pood
 
 		private static void EliminirajVišekratnike(int i)
 		{
-			for ( int j = 2 * i; j < s; j += i )
+			for ( int j = 2 * i; j < jeLiEliminiran.Length; j += i )
 				jeLiEliminiran[j] = true; // višekratnik nije primbroj
 		}
 
 		private static void NapraviNizCijelihBrojeva(int max)
 		{
-			// deklaracije
-			s = max + 1; // duljina niza
-			jeLiEliminiran = new bool[s]; // niz s primbrojevima
-
+			jeLiEliminiran = new bool[max + 1]; // niz s primbrojevima
 		}
 	}
 }
