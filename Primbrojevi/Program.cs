@@ -50,7 +50,7 @@ namespace Vsite.Pood
             int broj = 0;
             for (int i = 2; i < s; ++i)
             {
-                if (!jeLiEliminiran[i])
+                if (NijeEliminiran(i))
                     ++broj;
             }
 
@@ -59,7 +59,7 @@ namespace Vsite.Pood
             // prebaci primbrojeve u rezultat
             for (int i = 2, j = 0; i < s; ++i)
             {
-                if (!jeLiEliminiran[i])
+                if (NijeEliminiran(i))
                     primovi[j++] = i;
             }
             return primovi; // vrati niz brojeva
@@ -70,11 +70,16 @@ namespace Vsite.Pood
             // sito (ide do kvadratnog korijena maksimalnog broja)
             for (int i = 2; i < Math.Sqrt(s) + 1; ++i)
             {
-                if (!jeLiEliminiran[i]) // ako je i prekrižen, prekriži i višekratnike
+                if (NijeEliminiran(i)) // ako je i prekrižen, prekriži i višekratnike
                 {
                     EliminirajVišekratnike(i);
                 }
             }
+        }
+
+        private static bool NijeEliminiran(int i)
+        {
+            return jeLiEliminiran[i] == false;
         }
 
         private static void EliminirajVišekratnike(int i)
