@@ -29,7 +29,6 @@ namespace Vsite.Pood
                     Console.WriteLine(broj);
             }
         }
-        static int[] primovi;
 
         // Primjer iz knjige  Robert C. Martin: "Agile Software Development"!!!
         public static int[] GenerirajPrimBrojeve(int max)
@@ -53,7 +52,7 @@ namespace Vsite.Pood
                     broj++;
             }
 
-            primovi = new int[broj];
+            int[] primovi = new int[broj];
 
             // prebaci primbrojeve u rezultat
             for (int i = 2, j = 0; i < jeLiEliminiran.Length; ++i)
