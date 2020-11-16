@@ -30,8 +30,6 @@ namespace Vsite.Pood
         }
 
         
-        static bool[] jeliEliminiran;
-        static int[] primovi;
 
         // Primjer iz knjige  Robert C. Martin: "Agile Software Development"!!!
         public static int[] GenerirajPrimBrojeve(int max)
@@ -40,18 +38,18 @@ namespace Vsite.Pood
                 return new int[0]; // vrati prazan niz
 
             // deklaracije
-            NapraviNizCjelihBrojeva(max);
+            var niz = NapraviNizCjelihBrojeva(max);
 
             // sito (ide do kvadratnog korijena maksimalnog broja)
 
-            EliminirajVisekratnike();
+            EliminirajVisekratnike(niz);
 
             // koliko je primbrojeva?
-            return PokupiPrimove();
+            return PokupiPrimove(niz);
 
         }
 
-        private static int[] PokupiPrimove()
+        private static int[] PokupiPrimove(bool[] jeliEliminiran)
         {
             int broj = 0;
             for (int i = 2; i < jeliEliminiran.Length; ++i)
@@ -60,7 +58,7 @@ namespace Vsite.Pood
                     ++broj;
             }
 
-            primovi = new int[broj];
+            int[] primovi = new int[broj];
 
             // prebaci primbrojeve u rezultat
             for (int i = 2, j = 0; i < jeliEliminiran.Length; ++i)
@@ -71,7 +69,7 @@ namespace Vsite.Pood
             return primovi; // vrati niz brojeva
         }
 
-        private static void EliminirajVisekratnike()
+        private static void EliminirajVisekratnike(bool[] jeliEliminiran)
         {
             for (int i = 2; i < Math.Sqrt(jeliEliminiran.Length) + 1; ++i)
             {
@@ -88,9 +86,9 @@ namespace Vsite.Pood
             }
         }
 
-        private static void NapraviNizCjelihBrojeva(int max)
+        private static bool[] NapraviNizCjelihBrojeva(int max)
         {
-            jeliEliminiran = new bool[max+1]; // niz s primbrojevima
+            return new bool[max+1]; // niz s primbrojevima
         }
     }
 }
