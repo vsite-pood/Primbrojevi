@@ -28,55 +28,68 @@ namespace Vsite.Pood
                     Console.WriteLine(broj);
             }
         }
+        //static bool[] jeliEliminiran;
+        //static int[] primovi;
 
         // Primjer iz knjige  Robert C. Martin: "Agile Software Development"!!!
         public static int[] GenerirajPrimBrojeve(int max)
         {
-            if (max >= 2)
-            {
-                // deklaracije
-                int s = max + 1; // duljina niza
-                bool[] f = new bool[s]; // niz s primbrojevima
-                int i;
-
-                // inicijaliziramo sve na true
-                for (i = 0; i < s; ++i)
-                    f[i] = true;
-
-                // ukloni 0 i 1 koji su primbrojevi po definiciji
-                f[0] = f[1] = false;
-
-                // sito (ide do kvadratnog korijena maksimalnog broja)
-                int j;
-                for (i = 2; i < Math.Sqrt(s) + 1; ++i)
-                {
-                    if (f[i]) // ako je i prekrižen, prekriži i višekratnike
-                    {
-                        for (j = 2 * i; j < s; j += i)
-                            f[j] = false; // višekratnik nije primbroj
-                    }
-                }
-
-                // koliko je primbrojeva?
-                int broj = 0;
-                for (i = 0; i < s; ++i)
-                {
-                    if (f[i])
-                        ++broj;
-                }
-
-                int[] primovi = new int[broj];
-
-                // prebaci primbrojeve u rezultat
-                for (i = 0, j = 0; i < s; ++i)
-                {
-                    if (f[i])
-                        primovi[j++] = i;
-                }
-                return primovi; // vrati niz brojeva
-            }
-            else
+            if (max < 2)
                 return new int[0]; // vrati prazan niz
+
+            var niz = NapraviNizCijelihBrojeva(max);
+
+            EliminirajVišekratnike(niz);
+
+            return PokupiPrimove(niz);
+        }
+
+        private static int[] PokupiPrimove(bool[] jeliEliminiran)
+        {
+            // koliko je primbrojeva?
+            int broj = 0;
+            for (int i = 2; i < jeliEliminiran.Length; ++i)
+            {
+                if (NijeEliminiran(i, jeliEliminiran))
+                    ++broj;
+            }
+
+            int[] primovi = new int[broj];
+
+            // prebaci primbrojeve u rezultat
+            for (int i = 2, j = 0; i < jeliEliminiran.Length; ++i)
+            {
+                if (NijeEliminiran(i, jeliEliminiran))
+                    primovi[j++] = i;
+            }
+            return primovi;
+        }
+
+        private static void EliminirajVišekratnike(bool[] jeliEliminiran)
+        {
+            for (int i = 2; i < Math.Sqrt(jeliEliminiran.Length) + 1; ++i)
+            {
+                if (NijeEliminiran(i, jeliEliminiran)) // ako je i prekrižen, prekriži i višekratnike
+                {
+                    EliminirajVišekratnike(i, jeliEliminiran);
+                }
+            }
+        }
+
+        private static bool NijeEliminiran(int i, bool[] jeliEliminiran)
+        {
+            return jeliEliminiran[i] == false;
+        }
+
+        private static void EliminirajVišekratnike(int i, bool[] jeliEliminiran)
+        {
+            for (int j = 2 * i; j < jeliEliminiran.Length; j += i)
+                jeliEliminiran[j] = true; // višekratnik nije primbroj
+        }
+
+        private static bool[] NapraviNizCijelihBrojeva(int max)
+        {
+            return new bool[max + 1]; // niz s primbrojevima
         }
     }
 }
