@@ -29,67 +29,63 @@ namespace Vsite.Pood
             }
         }
 
-        static bool[] jeliEliminiran;
-        static int[] primovi;
-
-
         public static int[] GenerirajPrimBrojeve(int max)
         {
             if (max < 2)
                 return new int[0]; 
 
-            NapraviNizCijelihBrojeva(max);
+            var niz = NapraviNizCijelihBrojeva(max);
 
-            EliminirajVisekratnike();
+            EliminirajVisekratnike(niz);
 
-            return PokupiPrimove();
+            return PokupiPrimove(niz);
 
         }
 
-        private static int[] PokupiPrimove()
+        private static int[] PokupiPrimove(bool[] jeLiEliminiran)
         {
             int broj = 0;
-            for (int i = 2; i < jeliEliminiran.Length; ++i)
+            for (int i = 2; i < jeLiEliminiran.Length; ++i)
             {
-                if (nijeEliminiran(i))
+                if (nijeEliminiran(i, jeLiEliminiran))
                     ++broj;
             }
 
-            primovi = new int[broj];
+            int[] primovi = new int[broj];
 
-            for (int i = 2, j = 0; i < jeliEliminiran.Length; ++i)
+            for (int i = 2, j = 0; i < jeLiEliminiran.Length; ++i)
             {
-                if (nijeEliminiran(i))
+                if (nijeEliminiran(i, jeLiEliminiran))
                     primovi[j++] = i;
             }
             return primovi;
         }
 
-        private static void EliminirajVisekratnike()
+        private static void EliminirajVisekratnike(bool[] jeLiEliminiran)
         {
-            for (int i = 2; i < Math.Sqrt(jeliEliminiran.Length) + 1; ++i)
+            for (int i = 2; i < Math.Sqrt(jeLiEliminiran.Length) + 1; ++i)
             {
-                if (nijeEliminiran(i))
+                if (nijeEliminiran(i, jeLiEliminiran))
                 {
-                    EleminirajVesekratnikeOdBrojaN(i);
+                    EleminirajVesekratnikeOdBrojaN(i, jeLiEliminiran);
                 }
             }
         }
 
-        private static bool nijeEliminiran(int i)
+        private static bool nijeEliminiran(int i, bool[] jeLiEliminiran)
         {
-            return jeliEliminiran[i] == false;
+            return jeLiEliminiran[i] == false;
         }
 
-        private static void EleminirajVesekratnikeOdBrojaN(int n)
+        private static void EleminirajVesekratnikeOdBrojaN(int n, bool[] jeLiEliminiran)
         {
-            for (int j = 2 * n; j < jeliEliminiran.Length; j += n)
-                jeliEliminiran[j] = true;
+            for (int j = 2 * n; j < jeLiEliminiran.Length; j += n)
+                jeLiEliminiran[j] = true;
         }
 
-        private static void NapraviNizCijelihBrojeva(int max)
+        private static bool[] NapraviNizCijelihBrojeva(int max)
         {
-            jeliEliminiran = new bool[max + 1]; 
+            return new bool[max + 1]; 
         }
     }
 }
