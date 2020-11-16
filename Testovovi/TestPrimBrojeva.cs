@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Vsite.Pood;
 
-namespace Testovovi
+namespace Testovi
 {
     [TestClass]
     public class TestPrimBrojeva
